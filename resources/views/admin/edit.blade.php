@@ -15,7 +15,7 @@
                     <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Enter Recipe Details
                         <hr>
                     </h3>
-                    <form action="{{route('update',$rdata->id)}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('update',$rdata->uuid)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
 
@@ -48,7 +48,8 @@
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label class="form-label select-label">Upload an Image</label>
-                                <input id="picture" name="picture" type="file" />
+                                <input id="picture" name="picture" type="file" >
+                                <img src="/images/{{$rdata->picture}}" width="100">
                             </div>
 
                         </div>

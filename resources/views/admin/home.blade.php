@@ -25,9 +25,9 @@
                 <td><img src="/images/{{ $data->picture }}" height="50px" alt="..."></td>
                
                 <td>
-                    <a href="{{route('recipes.show',$data->id)}}"><i class="fa fa fa-eye btn btn-outline-info btn-sm "></i></a>
-                    <a href="{{route('edit',$data->id)}}"><i class="fa fa-edit btn btn-outline-warning btn-sm"></i></a>
-                    <a href="{{route('delete',$data->id)}}"><i class="fa fa-trash btn btn-outline-danger btn-sm" aria-hidden="true"></i></a>
+                    <a href="{{route('recipes.show',$data->uuid)}}"><i class="fa fa fa-eye btn btn-outline-info btn-sm "></i></a>
+                    <a href="{{route('edit',$data->uuid)}}"><i class="fa fa-edit btn btn-outline-warning btn-sm"></i></a>
+                    <a href="{{route('delete',$data->uuid)}}"><i class="fa fa-trash btn btn-outline-danger btn-sm" aria-hidden="true"></i></a>
                     
                 </td>
 

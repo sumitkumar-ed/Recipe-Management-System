@@ -61,7 +61,7 @@
             {{-- Add Ingredients===================== --}}
             <div class="row">
               <div class="form-group child-repeater-table col-12">
-                <table id="table1" class="table table-border table-responsive">
+                <table id="table1" name="table1" class="table table-border table-responsive">
                   <thead>
                     <tr>
                       <th>Add Ingredients</th>

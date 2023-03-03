@@ -3,8 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+// use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminMiddleware
 {
@@ -25,13 +27,14 @@ class AdminMiddleware
                 return $next($request);
 
             }else{   
-                return redirect()->back()->with('success','Access Denied as you are not Admin');
+                Session::put('isadmin','You Dont have access !');
+                return redirect()->back();
 
 
             }
         }else{
-            return redirect('/login')->withSuccess('Login to Acccess the website ');
-        }
+            return redirect('/register')->with('success', 'Your message has been sent.');
+        } 
         return $next($request);
     }
 }

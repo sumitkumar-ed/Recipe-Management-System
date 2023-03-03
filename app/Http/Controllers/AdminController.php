@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Step;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
+use App\Traits\HasUuid;
 
 class AdminController extends Controller
 {
@@ -20,10 +22,9 @@ class AdminController extends Controller
 
     public function edit($id)
     {
-        $recipe = Recipe::find($id);
-
+        $recipe = Recipe::where('uuid',$id)->first();
         //featching related data from recipes table, ingredients table and steps table
-        $rdata = Recipe::find($id);
+        $rdata = Recipe::where('uuid',$id)->first();
         $idata = $recipe->ingredients;
         $sdata = $recipe->steps;
 
@@ -34,8 +35,7 @@ class AdminController extends Controller
     public function edit_ingredient($id)
     {
 
-        $recipe = Recipe::find($id);
-
+        $recipe = Recipe::where('uuid',$id)->first();
         //featching related data from recipes table, ingredients table and steps table
 
         $idata = $recipe->ingredients;
@@ -49,7 +49,7 @@ class AdminController extends Controller
     public function edit_step($id)
     {
 
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::where('uuid',$id)->first();
 
         //featching related data from recipes table, ingredients table and steps table
 
@@ -69,7 +69,7 @@ class AdminController extends Controller
 
     public function delete($id)
     {
-        Recipe::find($id)->delete();
+        Recipe::where('uuid',$id)->delete();
         return redirect()->back();
     }
 
@@ -107,6 +107,7 @@ class AdminController extends Controller
 
         // Insert data in Recipe Table
         $recipe = new Recipe;
+        $recipe->uuid= Uuid::uuid4()->toString();
         $recipe->title =  $request['title'];
         $recipe->category = $request['category'];
         $recipe->picture = $pic['picture'];
@@ -182,7 +183,7 @@ class AdminController extends Controller
         }
 
         // Update data in Recipe Table
-        Recipe::find($id)->update([
+        Recipe::where('uuid',$id)->update([
             'title' => $data['title'],
             'category' => $data['category'],
             'picture' => $data['picture'],
@@ -213,7 +214,9 @@ class AdminController extends Controller
         }
 
         $i=$recipeID[0];
-        return redirect('/admin/edit-step/' .$i);
+        $uuid= Recipe::where('id',$i)->value('uuid');
+        $id = $uuid->uuid;
+        return redirect('/admin/edit-step/' .$id);
     }
 
 

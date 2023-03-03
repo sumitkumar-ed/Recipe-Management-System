@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\User;
@@ -9,8 +10,9 @@ use App\Repository\AuthRepository;
 use App\Repository\AuthRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -35,6 +37,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
 
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -43,13 +46,17 @@ class UserController extends Controller
         ]);
 
 
+
         $user = new User;
+        $user->uuid = Str::uuid()->toString();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-
-        return redirect()->route('home');
+        Session::put('success', 'You Have Successfully register !');
+        // return redirect()->route('home');
+        // dd(Session::get('success'));
+        return redirect('/login');
     }
     public function login(Request $request)
     {
@@ -67,7 +74,11 @@ class UserController extends Controller
         // }
 
 
+
+
+
         $logindata = $request->only('email', 'password');
+        // dd($logindata);   
 
         $loginData = $this->authrepository->login($logindata);
         if ($loginData) {
@@ -75,8 +86,8 @@ class UserController extends Controller
         }
 
         // 
-
-        return redirect('/register')->withInput()->withErrors(['email' => 'Email or password are incorrect']);
+        Session::put('error', 'Enter a Valid user name and password !');
+        return redirect('/login');
     }
 
     public function index()
@@ -92,14 +103,22 @@ class UserController extends Controller
     public function showAll()
     {
         $recipes = Recipe::all();
-        return view('user.recipes', compact('recipes'));
+        return view('user.recipes', compact('recipes'))->with('success', 'login successfully !');
     }
 
     public function show($id)
     {
-        $recipes = Recipe::find($id);
 
+        try {
+            $recipes = Recipe::where('uuid', $id)->first();
+            if($recipes){
+                return view('user.show', compact('recipes'));
+            }
 
-        return view('user.show', compact('recipes'));
+            return redirect()->back()->withErrors("Invalid Request");
+            
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 }

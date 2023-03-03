@@ -3,7 +3,15 @@
 @section('carasoul-section')
 
 <!--Carasoul -->
-
+<div class="middle">
+  @if ($message = Session::get('isadmin'))
+  <div class="alert alert-success alert-block" role="alert">
+    <a href='/back'> <button type="button" class="close" data-dismiss="alert">×</button></a>
+    <strong>{{ $message }}</strong>
+  </div>
+  {{Session::forget('isadmin')}}
+  @endif
+</div>
 <div id="carouselExampleCaptions" class="carousel top slide py-5" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -43,9 +51,19 @@
   </button>
 </div>
 <!--Carasoul -->
-
+@endsection
 
 @section('main-section')
+
+<div>
+  @if (Session::has('success'))
+  <div class="alert alert-info">{{ Session::get('success') }}
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  </div>
+  @endif
+</div>
+
+
 
 
 
@@ -101,7 +119,8 @@
           <div class="card-body">
             <h5 class="card-title">{{$data->title}}</h5>
             <p class="card-text">{{$data->description}}</p>
-            <a href="{{route('recipes.show',$data->id)}}" class="btn btn-primary">View Details</a>          </div>
+            <a href="{{route('recipes.show',$data->uuid)}}" class="btn btn-primary">View Details</a>
+          </div>
         </div>
       </div>
       @endforeach

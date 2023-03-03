@@ -21,7 +21,7 @@ class CartController extends Controller
             $list->user_id=$req->session()->get('user')['id'];
             $list->recipe_id=$req->recipe_id;
             $list->save();
-            return redirect('/home');
+            return redirect('/');
 
         } 
         else 

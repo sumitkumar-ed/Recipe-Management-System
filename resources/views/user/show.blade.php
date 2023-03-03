@@ -2,6 +2,9 @@
 
 @section('main-section')
 
+
+
+
 <!--Section: Content-->
 <section class="middle">
 
@@ -64,5 +67,6 @@
     </div>
 </section>
 <!--Section: Content-->
+
 
 @endsection
