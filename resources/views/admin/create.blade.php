@@ -61,28 +61,24 @@
             {{-- Add Ingredients===================== --}}
             <div class="row">
               <div class="form-group child-repeater-table col-12">
-                <table id="table1" name="table1" class="table table-border table-responsive">
-                  <thead>
-                    <tr>
-                      <th>Add Ingredients</th>
-                      <th><a href="javascript:void(0)" class="btn btn-sm btn-success addIng">+</a></th>
-
-
-                    </tr>
-                  </thead>
-
-                  <tbody id="tbody1">
-                    <tr>
-                      <td><input type="text" name="ingredient[]" class="form-control" place></td>
-                      <th><a href="javascript:void(0)" class="btn btn-sm btn-danger deleteIng">-</a></th>
-
-
-                    </tr>
-                  </tbody>
-
-                </table>
+                  <table id="table1" name="table1" class="table table-border table-responsive">
+                      <thead>
+                          <tr>
+                              <th>Add Ingredients</th>
+                              <th><a href="javascript:void(0)" class="btn btn-sm btn-success addIng">+</a></th>
+                          </tr>
+                      </thead>
+      
+                      <tbody id="tbody1">
+                          <tr>
+                              <td><input type="text" name="ingredient[]" class="form-control" place></td>
+                              <th><a href="javascript:void(0)" class="btn btn-sm btn-danger deleteIng">-</a></th>
+                          </tr>
+                      </tbody>
+      
+                  </table>
               </div>
-            </div>
+          </div>
 
 
 
@@ -133,10 +129,11 @@
 
 
 
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script>
     // for Ingredients
+    $(document).ready(function() {
     $('#table1').on('click', '.addIng', function(){
       var tr = "<tr>"+
                   "<td><input type='text' name='ingredient[]' class='form-control' place></td>"+
@@ -167,6 +164,7 @@
   $('#tbody2').on('click','.deleteStep', function(){
       $(this).parent().parent().remove();
   });
+});
 
   </script>
 

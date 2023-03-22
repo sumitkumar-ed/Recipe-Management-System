@@ -22,9 +22,9 @@ class AdminController extends Controller
 
     public function edit($id)
     {
-        $recipe = Recipe::where('uuid',$id)->first();
+        $recipe = Recipe::where('uuid', $id)->first();
         //featching related data from recipes table, ingredients table and steps table
-        $rdata = Recipe::where('uuid',$id)->first();
+        $rdata = Recipe::where('uuid', $id)->first();
         $idata = $recipe->ingredients;
         $sdata = $recipe->steps;
 
@@ -35,7 +35,7 @@ class AdminController extends Controller
     public function edit_ingredient($id)
     {
 
-        $recipe = Recipe::where('uuid',$id)->first();
+        $recipe = Recipe::where('uuid', $id)->first();
         //featching related data from recipes table, ingredients table and steps table
 
         $idata = $recipe->ingredients;
@@ -49,33 +49,19 @@ class AdminController extends Controller
     public function edit_step($id)
     {
 
-        $recipe = Recipe::where('uuid',$id)->first();
+        $recipe = Recipe::where('uuid', $id)->first();
 
         //featching related data from recipes table, ingredients table and steps table
 
         $sdata = $recipe->steps;
-
-
-        
-
-
         return view('admin.edit-step', compact(['sdata']));
     }
 
-
-
-
-
-
     public function delete($id)
     {
-        Recipe::where('uuid',$id)->delete();
+        Recipe::where('uuid', $id)->delete();
         return redirect()->back();
     }
-
-
-
-
 
     public function store(Request $request)
     {
@@ -85,12 +71,6 @@ class AdminController extends Controller
             'category' => 'required',
             'picture' => 'required',
             'description' => 'required',
-            
-           
-
-        
-
-
         ]);
 
 
@@ -107,7 +87,7 @@ class AdminController extends Controller
 
         // Insert data in Recipe Table
         $recipe = new Recipe;
-        $recipe->uuid= Uuid::uuid4()->toString();
+        $recipe->uuid = Uuid::uuid4()->toString();
         $recipe->title =  $request['title'];
         $recipe->category = $request['category'];
         $recipe->picture = $pic['picture'];
@@ -125,8 +105,6 @@ class AdminController extends Controller
 
                 'recipe_id' => $id,
                 'ingredient' => $ingredientitem,
-
-
             ]);
         }
 
@@ -136,13 +114,6 @@ class AdminController extends Controller
         // foreach ($records as $record) {
         //     Ingredient::create($record);
         // }
-
-
-
-
-
-
-
 
         //Insert Data In Steps Table
         $step = $request->except('_token');
@@ -159,9 +130,6 @@ class AdminController extends Controller
             $record->step = $step['step'][$key];
             $record->save();
         }
-
-
-
 
         $recipes = Recipe::all();
         $data = Recipe::all();
@@ -183,7 +151,7 @@ class AdminController extends Controller
         }
 
         // Update data in Recipe Table
-        Recipe::where('uuid',$id)->update([
+        Recipe::where('uuid', $id)->update([
             'title' => $data['title'],
             'category' => $data['category'],
             'picture' => $data['picture'],
@@ -200,23 +168,23 @@ class AdminController extends Controller
     public function update_ingredient(Request $request)
     {
         $ids = $request->input('id');
-        $recipeID= $request ->input('recipe_id');
+        $recipeID = $request->input('recipe_id');
 
-        
+
         $ingredients = $request->input('ingredient');
         foreach ($ids as $index => $id) {
-            
-           Ingredient::find( $id)
+
+            Ingredient::find($id)
                 ->update([
                     'ingredient' => $ingredients[$index],
-                    
+
                 ]);
         }
 
-        $i=$recipeID[0];
-        $uuid= Recipe::where('id',$i)->value('uuid');
+        $i = $recipeID[0];
+        $uuid = Recipe::where('id', $i)->value('uuid');
         $id = $uuid->uuid;
-        return redirect('/admin/edit-step/' .$id);
+        return redirect('/admin/edit-step/' . $id);
     }
 
 
@@ -226,13 +194,13 @@ class AdminController extends Controller
     {
         $ids = $request->input('id');
         $step_no = $request->input('step_no');
-        $step=$request->input('step');
+        $step = $request->input('step');
         foreach ($ids as $index => $id) {
-           Step::find( $id)
+            Step::find($id)
                 ->update([
                     'step_no' => $step_no[$index],
                     'step' => $step[$index],
-                    
+
                 ]);
         }
 

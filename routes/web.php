@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Session;
@@ -73,4 +74,10 @@ Route::prefix('admin')->middleware('isadmin')->group(function () {
     Route::post('/update-step', [AdminController::class, 'update_step'])->name('update.step');
 
     Route::get('/home/delete/{id}', [AdminController::class, 'delete'])->name('delete');
+
+
+
+    Route::get('/user', [EmailController::class, 'user'])->name('user');
+    Route::get('/email/{id}', [EmailController::class, 'EmailView'])->name('sent.email');
+    Route::post('/Storeemail/{id}', [EmailController::class, 'StoreSingleEmail'])->name('store.user.email');
 });

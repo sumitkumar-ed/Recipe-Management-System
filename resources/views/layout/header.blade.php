@@ -65,6 +65,10 @@
             <a class="nav-link" href="/admin/home">Admin Home</a>
           </li>
 
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/user">Sent Email</a>
+          </li>
+
           
         </ul>
         @endif
