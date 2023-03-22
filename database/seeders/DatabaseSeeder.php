@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('P@ssword123'),
             'role'=> 1,
             'uuid' => Str::uuid()->toString(),
+            'email_verification_token' => Str::random(40),
+            'is_email_verified'=>1,
 
 
         ]);

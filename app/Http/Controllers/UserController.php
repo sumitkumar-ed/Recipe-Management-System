@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Jobs\EmailVerificationJob;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\User;
@@ -52,8 +53,10 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->email_verification_token = Str::random(40);
         $user->save();
-        Session::put('success', 'You Have Successfully register !');
+        dispatch(new EmailVerificationJob($user));
+        Session::put('success', 'You Have Successfully register ! Please Verify Your email to login .');
         // return redirect()->route('home');
         // dd(Session::get('success'));
         return redirect('/login');
@@ -73,19 +76,20 @@ class UserController extends Controller
         //     return redirect('/home/recipes');
         // }
 
-
-
-
-
         $logindata = $request->only('email', 'password');
-        // dd($logindata);   
 
         $loginData = $this->authrepository->login($logindata);
         if ($loginData) {
-            return redirect('/home/recipes');
+            $verified = Auth::user()->is_email_verified;
+            if ($verified) {
+                return redirect('/home/recipes');
+            }
+            Auth::logout();
+            Session::flush();
+            Session::put('error', 'Please Verify your Email First !');
+            return redirect('/login');
         }
 
-        // 
         Session::put('error', 'Enter a Valid user name and password !');
         return redirect('/login');
     }
@@ -111,12 +115,11 @@ class UserController extends Controller
 
         try {
             $recipes = Recipe::where('uuid', $id)->first();
-            if($recipes){
+            if ($recipes) {
                 return view('user.show', compact('recipes'));
             }
 
             return redirect()->back()->withErrors("Invalid Request");
-            
         } catch (\Exception $e) {
             return response($e->getMessage());
         }

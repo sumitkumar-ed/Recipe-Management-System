@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,21 @@ Route::get('/logout', function () {
 });
 // test-------------------------------------------------
 Route::view('/show', 'user.show');
+Route::get('/verify-email/{token}', function ($token) {
+    $user = User::where('email_verification_token', $token)->firstOrFail();
+    $user->email_verified_at = now();
+    $user->is_email_verified = true;
+    
+    $user->email_verification_token = null;
+    $user->save();
+
+    return redirect()->to('verify_email');
+    // return response()->json([
+    //     'message' => 'Email address verified successfully.'
+    // ]);
+});
+
+Route::view('/verify_email','verified');
 
 
 //Login && Register && LogOut
