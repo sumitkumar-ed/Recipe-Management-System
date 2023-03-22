@@ -29,7 +29,7 @@
                         </div>
 
                         @if ($errors->has('email'))
-                        
+
                         <span class="text-danger"> {{ $message }} </span>
                         @endif
 
@@ -50,34 +50,37 @@
                             </p>
                         </div>
                     </form>
-
-
                     <div>
                         @if ($message = Session::get('success'))
-                        <div class="alert alert-success alert-block" role="alert">
+                        <div class="alert alert-success middle" role="alert">
                             <a href="/login"> <button type="button" class="close" data-dismiss="alert">×</button></a>
-                            <strong>{{ $message }}</strong>
+                            <i class="fa fa-check-circle"></i>{{ $message }}
                         </div>
                         {{Session::forget('success')}}
                         @endif
 
 
                         @if ($message = Session::get('error'))
-                        <div class="alert alert-danger alert-block" role="alert">
+                        {{-- <div class="alert alert-danger alert-block" role="alert">
                             <a href="/login"> <button type="button" class="close" data-dismiss="alert">×</button></a>
                             <strong>{{ $message }}</strong>
-                        </div>
-                        {{Session::forget('error')}}
-                        @endif
+                    </div> --}}
+
+                    <div class="alert alert-danger middle" role="alert">
+                        <i class="fa fa-check-circle"></i> {{ $message }}
                     </div>
-
-
+                    {{Session::forget('error')}}
+                    @endif
                 </div>
-
-
             </div>
+
+
         </div>
     </div>
 </div>
+
+</div>
+
+
 
 @endsection
