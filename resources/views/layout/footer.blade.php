@@ -22,9 +22,9 @@
   <hr class="m-0" />
 
   <div class="text-center py-4 align-items-center">
-    <p>Follow MDB on social media</p>
+    <p>Follow SCB on social media</p>
     <a
-      href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA"
+      href="https://www.youtube.com/live/nyd-xznCpJc?feature=share"
       class="btn btn-primary m-1"
       role="button"
       rel="nofollow"
@@ -33,7 +33,7 @@
       <i class="fab fa-youtube"></i>
     </a>
     <a
-      href="https://www.facebook.com/mdbootstrap"
+      href="https://www.facebook.com/"
       class="btn btn-primary m-1"
       role="button"
       rel="nofollow"
@@ -42,7 +42,7 @@
       <i class="fab fa-facebook-f"></i>
     </a>
     <a
-      href="https://twitter.com/MDBootstrap"
+      href="https://twitter.com/"
       class="btn btn-primary m-1"
       role="button"
       rel="nofollow"
@@ -51,7 +51,7 @@
       <i class="fab fa-twitter"></i>
     </a>
     <a
-      href="https://github.com/mdbootstrap/mdb-ui-kit"
+      href="https://github.com/"
       class="btn btn-primary m-1"
       role="button"
       rel="nofollow"
@@ -63,8 +63,8 @@
 
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    © 2020 Copyright:
-    <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    © 2023 Copyright:
+    <a class="text-dark" href="https://google.com/">scb.com</a>
   </div>
   <!-- Copyright -->
 </footer>
